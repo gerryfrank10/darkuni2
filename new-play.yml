@@ -1,0 +1,33 @@
+--- 
+- hosts: all
+  become: true
+  vars:
+    doc_root: /var/www/html/example
+  tasks:
+    - name: Install nginx
+      apt: name=nginx state=latest
+
+    - name: Create a document root
+      file: path={{ doc_root }} state=directory owner=www-data group=www-data
+    
+    - name: Copy the starter template
+      copy: src=index.html dest={{ doc_root }}/index.html owner=www-data group=www-data
+      notify: Restart nginx
+
+    - name: Clone a git repo
+      git:
+        repo: https://github.com/ansible/ansible-examples.git
+        dest: /opt/ansible-examples
+
+    - name: Install python module for docker
+      pip:
+        name: docker
+
+    - name: Pull the ubuntu container from docker hub
+      docker_image:
+        name: ubuntu
+        source: pull
+
+  handlers:
+    - name: Restart nginx
+      service: name=nginx start=restarted
