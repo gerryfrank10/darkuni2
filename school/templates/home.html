@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block contact %}
+<div class="container">
+  <div class="row">
+      <div class="col-lg-12 text-center">
+          <h2 class="text-uppercase section-heading">Contact Us</h2>
+          <h3 class="section-subheading text-muted">For any information its probably to contact us here within 3 hours we will respond you with full details.</h3>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-12">
+          <form method="POST">
+              <div class="form-row">
+                  <div class="col col-md-6">
+                      <div class="form-group">
+                        {{ form.name| as_crispy_field }}
+                        <small class="form-text text-danger flex-grow-1 help-block lead"></small>
+                      </div>
+                      <div class="form-group">
+                        {{ form.email| as_crispy_field }}
+                        <small class="form-text text-danger help-block lead"></small>
+                      </div>
+                      <!-- <div class="form-group">
+                        <input class="form-control" type="tel" placeholder="Your Phone *" required="">
+                        <small class="form-text text-danger help-block lead"></small>
+                      </div> -->
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                        {{ form.message | as_crispy_field }}
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      {{ form.university|crispy }}
+                    </div>
+                </div>
+                  <div class="col">
+                      <div class="clearfix"></div>
+                  </div>
+              </div>
+              <!-- {% csrf_token %}
+              {{ form|crispy  }} -->
+
+              <div class="col-lg-12 text-center">
+                <div id="success"></div>
+                <button class="btn btn-primary btn-xl text-uppercase" type="submit">Submit</button>
+              </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+{% endblock %}
